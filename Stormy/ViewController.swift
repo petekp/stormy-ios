@@ -21,10 +21,15 @@ class ViewController: UIViewController {
         
         let forecastURL = NSURL(string: "37.576876,-122.267081", relativeToURL: baseURL)
         
-        let weatherData = NSData(contentsOfURL: forecastURL!, options: nil, error: nil)
-        
-        println(weatherData)
-        
+        let sharedSession = NSURLSession.sharedSession()
+        let downloadTask: NSURLSessionDownloadTask =
+            sharedSession.downloadTaskWithURL(forecastURL!,
+                completionHandler: { (location: NSURL!,
+                    response: NSURLResponse!,
+                    error: NSError!) -> Void in
+                    println(response)
+        })
+        downloadTask.resume()
     }
 
     override func didReceiveMemoryWarning() {
